@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestionnaire de Liens - ETS GOOD DAV NET</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #0B1E44;
+    color: #f0f4f8;
+}
+
+header {
+    background-color: #1A3B7C;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+header img {
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #122A5A;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.5);
+}
+
+h2 {
+    color: #A0C4FF;
+    text-align: center;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.public-link {
+    background-color:#1A3B7C;
+    color:#f0f4f8;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px;
+    border-radius:8px;
+    transition: background 0.3s;
+}
+
+.public-link:hover {
+    background-color:#3561A0;
+}
+
+.public-link span {
+    font-size:1.05em;
+    font-weight:bold;
+}
+
+.btn-group {
+    display:flex;
+    gap:6px;
+}
+
+.open-btn {
+    background:#00B4D8;
+    padding:6px 12px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    color:white;
+    font-size:0.85em;
+}
+
+.open-btn:hover {
+    background:#0096C7;
+}
+
+.copy-btn {
+    background:#3561A0;
+    padding:6px 12px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    color:white;
+    font-size:0.85em;
+}
+
+.copy-btn:hover {
+    background:#1A3B7C;
+}
+
+footer {
+    text-align:center;
+    padding:15px;
+    background:#1A3B7C;
+    color:#A0C4FF;
+    font-size:0.9em;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="https://i.ibb.co/RpchLNx1/Image1.jpg">
+    <h1>ETS GOOD DAV NET - Gestionnaire de Liens</h1>
+</header>
+
+<div class="container">
+<h2>Liens Officiels & Outils</h2>
+
+<div class="flex-row">
+
+<!-- PLATEFORMES -->
+<div class="public-link">
+<span>🛍️ Boutique</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etsgooddavnet-dot.github.io/r/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-dot.github.io/r/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🌐 Créateur de site</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etsgooddavnet-dot.github.io/0/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-dot.github.io/0/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>💻 Site Web</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etsgooddavnet-dot.github.io/com/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-dot.github.io/com/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>📦 Gestion de stock & facturation</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etsgooddavnet-dot.github.io/st/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-dot.github.io/st/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🖼️ Fond de photo</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etsgooddavnet-dot.github.io/f/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-dot.github.io/f/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>📺 Télévision</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etsgooddavnet-dot.github.io/t/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-dot.github.io/t/')">Copier</button>
+</div>
+</div>
+
+<!-- OUTILS -->
+<div class="public-link">
+<span>⚙️ Générateur de .BAT</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/u/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etakouana35-del.github.io/u/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>⚡ ELECTRON 1</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/h/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etakouana35-del.github.io/h/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>⚡ ELECTRON 2</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/n/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etakouana35-del.github.io/n/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>📦 NSIS 3.11</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/9dmw3651og583v9/nsis-3.11-setup.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/9dmw3651og583v9/nsis-3.11-setup.exe/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>📦 INNO SETUP 6.5.2</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/5j33tldx8nvayzm/Inno_Setup_V6.5.2.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/5j33tldx8nvayzm/Inno_Setup_V6.5.2.exe/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🟢 Node.js v16.20 (Electron 14)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/te765ykzyvcy7k3/node-v16.20.0-x86.msi/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/te765ykzyvcy7k3/node-v16.20.0-x86.msi/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🎨 Changer l’icône du setup</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/970q4ty5g38cbmk/reshacker_setup.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/970q4ty5g38cbmk/reshacker_setup.exe/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🌐 Microsoft WebView2</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/gyb13h686zu9nu3/MicrosoftEdgeWebview2Setup.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/gyb13h686zu9nu3/MicrosoftEdgeWebview2Setup.exe/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>📝 Notepad++</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/etfzbgr1zt0utem/notepad-windows-8.8.7-32566.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/etfzbgr1zt0utem/notepad-windows-8.8.7-32566.exe/file')">Copier</button>
+</div>
+</div>
+
+</div>
+</div>
+
+<footer>
+© 2025 ETS GOOD DAV NET — Tous droits réservés
+</footer>
+
+<script>
+function openLink(url){
+    window.open(url,"_blank");
+}
+function copyLink(e,link){
+    e.preventDefault();
+    navigator.clipboard.writeText(link);
+    alert("Lien copié : "+link);
+}
+</script>
+
+</body>
+</html>
