@@ -476,6 +476,47 @@ function copyLink(e,link){
     alert("Lien copié : "+link);
 }
 </script>
+<script>
+// MOT DE PASSE PAR DÉFAUT
+if (!localStorage.getItem("platform_password")) {
+    localStorage.setItem("platform_password", "52522");
+}
+
+// VÉRIFICATION DU MOT DE PASSE
+function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    const saved = localStorage.getItem("platform_password");
+
+    if (input === saved) {
+        document.getElementById("lockScreen").style.display = "none";
+    } else {
+        document.getElementById("errorMsg").innerText = "Mot de passe incorrect ❌";
+    }
+}
+
+// MODIFICATION DU MOT DE PASSE
+function changePassword() {
+    const newPass = document.getElementById("newPassword").value;
+
+    if (newPass.length < 3) {
+        alert("Mot de passe trop court");
+        return;
+    }
+
+    localStorage.setItem("platform_password", newPass);
+    alert("Mot de passe modifié avec succès ✅");
+}
+
+// FONCTIONS EXISTANTES
+function openLink(url) {
+    window.open(url, "_blank");
+}
+
+function copyLink(link) {
+    navigator.clipboard.writeText(link);
+    alert("Lien copié : " + link);
+}
+</script>
 
 </body>
 </html>
