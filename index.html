@@ -847,39 +847,41 @@ function copyLink(e,link) {
     alert("Lien copié : " + link);
 }
 </script>
-<script>
-const adsData = [
-  { type: "link", url: "https://etakouana35-del.github.io/l/" },
-  { type: "link", url: "https://etakouana35-del.github.io/com/" },
-  { type: "link", url: "https://etsgooddavnet-dot.github.io/r/" },
-  { type: "video", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-  { type: "video", url: "https://www.w3schools.com/html/mov_bbb.mp4", loop: true },
-  { type: "link", url: "https://app.chariow.com/auth/register" } // ta pub existante
-];
-
-let openedAds = new Set();
-
 document.addEventListener("DOMContentLoaded", () => {
-    adsData.forEach(ad => {
-        // Vérifie si la pub n'a pas déjà été ouverte
-        if (!openedAds.has(ad.url)) {
-            try {
-                window.open(ad.url, "_blank");
-                openedAds.add(ad.url);
-            } catch (err) {
-                console.warn("Impossible d'ouvrir la pub :", ad.url);
-            }
-        }
-    });
+    // Liste des publicités
+    const adsData = [
+        { type: "link", url: "https://etakouana35-del.github.io/l/" },
+        { type: "link", url: "https://etakouana35-del.github.io/com/" },
+        { type: "link", url: "https://etsgooddavnet-dot.github.io/r/" },
+        { type: "video", url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+        { type: "video", url: "https://www.w3schools.com/html/mov_bbb.mp4", loop: true }
+    ];
 
-    // Supprime visuellement les pubs déjà ouvertes du DOM
-    document.querySelectorAll(".public-link").forEach(linkDiv => {
-        const span = linkDiv.querySelector("span");
-        if (span && openedAds.has(linkDiv.querySelector(".open-btn")?.getAttribute("onclick")?.match(/'(.*?)'/)?.[1])) {
-            linkDiv.style.display = "none"; // cache la pub
+    // Récupérer la liste des pubs déjà ouvertes dans le localStorage
+    let openedAds = JSON.parse(localStorage.getItem("openedAds") || "[]");
+
+    adsData.forEach(ad => {
+        // Si la pub n'a jamais été ouverte
+        if (!openedAds.includes(ad.url)) {
+            if (ad.type === "link") {
+                window.open(ad.url, "_blank");
+            } else if (ad.type === "video") {
+                const videoWin = window.open("", "_blank");
+                videoWin.document.write(`
+                    <html>
+                    <head><title>Publicité</title></head>
+                    <body style="margin:0; background:#000;">
+                        <video src="${ad.url}" ${ad.loop ? "loop" : ""} autoplay controls style="width:100%; height:100vh;"></video>
+                    </body>
+                    </html>
+                `);
+            }
+
+            // Ajouter cette pub à la liste des pubs ouvertes
+            openedAds.push(ad.url);
+            localStorage.setItem("openedAds", JSON.stringify(openedAds));
         }
     });
 });
-</script>
 </body>
 </html>
