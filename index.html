@@ -847,8 +847,7 @@ function copyLink(e,link) {
     alert("Lien copié : " + link);
 }
 </script>
-document.addEventListener("DOMContentLoaded", () => {
-    // Liste des publicités
+    document.addEventListener("DOMContentLoaded", () => {
     const adsData = [
         { type: "link", url: "https://etakouana35-del.github.io/l/" },
         { type: "link", url: "https://etakouana35-del.github.io/com/" },
@@ -857,31 +856,94 @@ document.addEventListener("DOMContentLoaded", () => {
         { type: "video", url: "https://www.w3schools.com/html/mov_bbb.mp4", loop: true }
     ];
 
-    // Récupérer la liste des pubs déjà ouvertes dans le localStorage
     let openedAds = JSON.parse(localStorage.getItem("openedAds") || "[]");
+    let currentIndex = 0;
 
-    adsData.forEach(ad => {
-        // Si la pub n'a jamais été ouverte
-        if (!openedAds.includes(ad.url)) {
-            if (ad.type === "link") {
-                window.open(ad.url, "_blank");
-            } else if (ad.type === "video") {
-                const videoWin = window.open("", "_blank");
-                videoWin.document.write(`
-                    <html>
-                    <head><title>Publicité</title></head>
-                    <body style="margin:0; background:#000;">
-                        <video src="${ad.url}" ${ad.loop ? "loop" : ""} autoplay controls style="width:100%; height:100vh;"></video>
-                    </body>
-                    </html>
-                `);
-            }
-
-            // Ajouter cette pub à la liste des pubs ouvertes
-            openedAds.push(ad.url);
-            localStorage.setItem("openedAds", JSON.stringify(openedAds));
-        }
+    // Overlay commun pour toutes les vidéos
+    const overlay = document.createElement("div");
+    Object.assign(overlay.style, {
+        position: "fixed",
+        top: "0",
+        left: "0",
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(0,0,0,0.85)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: "9999",
+        visibility: "hidden",
+        flexDirection: "column"
     });
+    document.body.appendChild(overlay);
+
+    // Bouton Ignorer
+    const closeBtn = document.createElement("button");
+    closeBtn.textContent = "Ignorer / Fermer";
+    Object.assign(closeBtn.style, {
+        position: "absolute",
+        top: "20px",
+        right: "20px",
+        padding: "10px 15px",
+        backgroundColor: "#ff4d4f",
+        color: "#fff",
+        border: "none",
+        borderRadius: "5px",
+        cursor: "pointer",
+        zIndex: "10000",
+        fontSize: "16px"
+    });
+    overlay.appendChild(closeBtn);
+    closeBtn.onclick = () => overlay.style.visibility = "hidden";
+
+    const showAd = (ad) => {
+        if (ad.type === "link") {
+            window.open(ad.url, "_blank");
+        } else if (ad.type === "video") {
+            overlay.innerHTML = ""; // Reset contenu
+            overlay.appendChild(closeBtn); // Ajouter le bouton
+            let content;
+            if (ad.url.includes("youtube.com") || ad.url.includes("youtu.be")) {
+                let videoId = ad.url.includes("youtu.be")
+                    ? ad.url.split("/").pop()
+                    : new URL(ad.url).searchParams.get("v");
+                content = document.createElement("iframe");
+                content.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&rel=0`;
+                content.allow = "autoplay; encrypted-media";
+            } else {
+                content = document.createElement("video");
+                content.src = ad.url;
+                content.autoplay = true;
+                content.controls = true;
+                if (ad.loop) content.loop = true;
+                content.style.maxWidth = "90%";
+                content.style.maxHeight = "90%";
+            }
+            content.style.border = "none";
+            overlay.appendChild(content);
+            overlay.style.visibility = "visible";
+        }
+
+        // Marquer comme ouvert
+        openedAds.push(ad.url);
+        localStorage.setItem("openedAds", JSON.stringify(openedAds));
+    };
+
+    const nextAd = () => {
+        if (currentIndex >= adsData.length) return;
+        const ad = adsData[currentIndex];
+        currentIndex++;
+
+        if (!openedAds.includes(ad.url)) {
+            showAd(ad);
+        }
+
+        // Rotation automatique toutes les 20s
+        setTimeout(nextAd, 20000);
+    };
+
+    // Démarrage après 1s
+    setTimeout(nextAd, 1000);
 });
 </body>
 </html>
