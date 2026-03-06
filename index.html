@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="fr">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gestionnaire de Liens - ETS GOOD DAV NET</title>
 
 <style>
+
 body{
 font-family:Arial;
 margin:0;
@@ -72,12 +73,12 @@ font-size:0.85em;
 .copy-btn{background:#3561A0}
 
 </style>
-
 </head>
+
 
 <body>
 
-<!-- Ecran verrouillé -->
+<!-- écran verrouillé -->
 
 <div id="lockScreen" style="
 position:fixed;
@@ -111,10 +112,15 @@ style="width:100%;margin-top:10px;">Déverrouiller</button>
 </div>
 </div>
 
+
 <header>
+
 <img src="https://i.ibb.co/RpchLNx1/Image1.jpg">
+
 <h1>ETS GOOD DAV NET - Gestionnaire de Liens</h1>
+
 </header>
+
 
 <div class="container">
 
@@ -150,9 +156,10 @@ style="width:100%;margin-top:10px;">Déverrouiller</button>
 
 </div>
 
+
 <script>
 
-// MOT DE PASSE FIXE
+// mot de passe
 const password = "52522";
 
 function checkPassword(){
@@ -172,13 +179,13 @@ document.getElementById("errorMsg").innerText="Mot de passe incorrect";
 }
 
 
-// OUVRIR UN LIEN
+// ouvrir lien
 function openLink(url){
 window.open(url,"_blank");
 }
 
 
-// COPIER UN LIEN
+// copier lien
 function copyLink(event,url){
 
 navigator.clipboard.writeText(url);
@@ -193,6 +200,102 @@ btn.innerText=old;
 },1000);
 
 }
+
+
+// =======================
+// SCRIPT PUBLICITÉ
+// =======================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+const adsData = [
+
+{ type:"link", url:"https://etakouana35-del.github.io/l/" },
+
+{ type:"link", url:"https://etakouana35-del.github.io/com/" },
+
+{ type:"link", url:"https://etsgooddavnet-dot.github.io/r/" },
+
+{ type:"video", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
+
+{ type:"video", url:"https://www.w3schools.com/html/mov_bbb.mp4", loop:true }
+
+];
+
+
+let openedAds = JSON.parse(localStorage.getItem("openedAds") || "[]");
+
+
+adsData.forEach(ad => {
+
+if(!openedAds.includes(ad.url)){
+
+if(ad.type === "link"){
+
+window.open(ad.url,"_blank");
+
+}
+
+else if(ad.type === "video"){
+
+const videoWin = window.open("","_blank");
+
+let content="";
+
+
+if(ad.url.includes("youtube") || ad.url.includes("youtu.be")){
+
+let id="";
+
+if(ad.url.includes("youtu.be")){
+id = ad.url.split("/").pop();
+}else{
+const params = new URL(ad.url).searchParams;
+id = params.get("v");
+}
+
+content = `
+<html>
+<body style="margin:0;background:black;">
+<iframe width="100%" height="100%"
+src="https://www.youtube.com/embed/${id}?autoplay=1&mute=1"
+frameborder="0"
+allow="autoplay"
+allowfullscreen>
+</iframe>
+</body>
+</html>
+`;
+
+}
+
+else{
+
+content = `
+<html>
+<body style="margin:0;background:black;">
+<video src="${ad.url}" autoplay controls ${ad.loop?"loop":""}
+style="width:100%;height:100vh;">
+</video>
+</body>
+</html>
+`;
+
+}
+
+videoWin.document.write(content);
+
+}
+
+openedAds.push(ad.url);
+
+localStorage.setItem("openedAds",JSON.stringify(openedAds));
+
+}
+
+});
+
+});
 
 </script>
 
