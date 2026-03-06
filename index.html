@@ -1,133 +1,176 @@
+
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gestionnaire de Liens - ETS GOOD DAV NET</title>
 
 <style>
-
-body{
-font-family:Arial;
-margin:0;
-background:#0B1E44;
-color:#f0f4f8;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #0B1E44;
+    color: #f0f4f8;
 }
 
-header{
-background:#1A3B7C;
-padding:20px;
-text-align:center;
+header {
+    background-color: #1A3B7C;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
 }
 
-header img{
-height:60px;
-margin-bottom:10px;
+header img {
+    height: 60px;
+    margin-bottom: 10px;
 }
 
-.container{
-max-width:900px;
-margin:auto;
-padding:20px;
-background:#122A5A;
-border-radius:10px;
-box-shadow:0 2px 15px rgba(0,0,0,0.5);
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #122A5A;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.5);
 }
 
-h2{
-text-align:center;
-color:#A0C4FF;
+h2 {
+    color: #A0C4FF;
+    text-align: center;
 }
 
-.flex-row{
-display:flex;
-flex-direction:column;
-gap:12px;
+.flex-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.public-link{
-background:#1A3B7C;
-padding:12px;
-border-radius:8px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+.public-link {
+    background-color:#1A3B7C;
+    color:#f0f4f8;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:12px;
+    border-radius:8px;
+    transition: background 0.3s;
 }
 
-.btn-group{
-display:flex;
-gap:6px;
+.public-link:hover {
+    background-color:#3561A0;
 }
 
-button{
-border:none;
-padding:6px 12px;
-border-radius:5px;
-cursor:pointer;
-color:white;
-font-size:0.85em;
+.public-link span {
+    font-size:1.05em;
+    font-weight:bold;
 }
 
-.open-btn{background:#00B4D8}
-.copy-btn{background:#3561A0}
+.btn-group {
+    display:flex;
+    gap:6px;
+}
 
+.open-btn {
+    background:#00B4D8;
+    padding:6px 12px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    color:white;
+    font-size:0.85em;
+}
+
+.open-btn:hover {
+    background:#0096C7;
+}
+
+.copy-btn {
+    background:#3561A0;
+    padding:6px 12px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    color:white;
+    font-size:0.85em;
+}
+
+.copy-btn:hover {
+    background:#1A3B7C;
+}
+
+footer {
+    text-align:center;
+    padding:15px;
+    background:#1A3B7C;
+    color:#A0C4FF;
+    font-size:0.9em;
+}
 </style>
 </head>
 
-
 <body>
 
-<!-- écran verrouillé -->
-
+<!-- ÉCRAN DE PROTECTION -->
 <div id="lockScreen" style="
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
+top:0;left:0;
+width:100%;height:100%;
 background:#0B1E44;
 display:flex;
 align-items:center;
 justify-content:center;
-z-index:9999;">
+z-index:9999;
+">
 
 <div style="
 background:#122A5A;
 padding:30px;
 border-radius:12px;
-width:300px;
-text-align:center;">
+width:320px;
+text-align:center;
+box-shadow:0 0 20px rgba(0,0,0,0.6);
+">
 
-<h2>🔐 Accès sécurisé</h2>
+<h2 style="color:#A0C4FF;">🔐 Accès Sécurisé</h2>
 
+<!-- Accès à la plateforme -->
 <input id="passwordInput" type="password" placeholder="Mot de passe"
-style="padding:10px;border-radius:6px;border:none;width:100%;">
+style="width:100%;padding:10px;margin-top:15px;border-radius:6px;border:none;outline:none;font-size:16px;">
 
-<button onclick="checkPassword()" class="open-btn"
-style="width:100%;margin-top:10px;">Déverrouiller</button>
+<button onclick="checkPassword()" style="margin-top:15px;width:100%;padding:10px;background:#00B4D8;border:none;border-radius:6px;color:white;font-size:16px;cursor:pointer;">
+Déverrouiller
+</button>
 
-<p id="errorMsg" style="color:#ff6b6b;"></p>
+<p id="errorMsg" style="color:#ff6b6b;margin-top:10px;"></p>
+
+<hr style="margin:20px 0;border-color:#1A3B7C;">
+
+<!-- Modifier le mot de passe -->
+<input id="oldPassword" type="password" placeholder="Ancien mot de passe"
+style="width:100%;padding:8px;border-radius:6px;border:none;margin-bottom:10px;">
+
+<input id="newPassword" type="text" placeholder="Nouveau mot de passe"
+style="width:100%;padding:8px;border-radius:6px;border:none;margin-bottom:10px;">
+
+<button onclick="changePassword()" style="width:100%;padding:8px;background:#3561A0;border:none;border-radius:6px;color:white;cursor:pointer;">
+Modifier le mot de passe
+</button>
 
 </div>
 </div>
-
 
 <header>
-
-<img src="https://i.ibb.co/RpchLNx1/Image1.jpg">
-
-<h1>ETS GOOD DAV NET - Gestionnaire de Liens</h1>
-
+    <img src="https://i.ibb.co/RpchLNx1/Image1.jpg">
+    <h1>ETS GOOD DAV NET - Gestionnaire de Liens</h1>
 </header>
 
-
 <div class="container">
-
-<h2>Liens Officiels</h2>
+<h2>Liens Officiels & Outils</h2>
 
 <div class="flex-row">
 
+<!-- PLATEFORMES -->
 <div class="public-link">
 <span>🛍️ Boutique</span>
 <div class="btn-group">
@@ -152,152 +195,659 @@ style="width:100%;margin-top:10px;">Déverrouiller</button>
 </div>
 </div>
 
+<div class="public-link">
+<span>📦 Gestion de stock & facturation</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etsgooddavnet-dot.github.io/st/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-dot.github.io/st/')">Copier</button>
+</div>
 </div>
 
+<div class="public-link">
+<span>🖼️ Fond de photo</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etsgooddavnet-dot.github.io/f/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-dot.github.io/f/')">Copier</button>
+</div>
 </div>
 
+<div class="public-link">
+<span>📺 Télévision</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etsgooddavnet-dot.github.io/t/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-dot.github.io/t/')">Copier</button>
+</div>
+</div>
+
+<!-- OUTILS -->
+<div class="public-link">
+<span>⚙️ Générateur de .BAT</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/u/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etakouana35-del.github.io/u/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>⚡ ELECTRON 1</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/h/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etakouana35-del.github.io/h/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>📦 NSIS 3.11</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/9dmw3651og583v9/nsis-3.11-setup.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/9dmw3651og583v9/nsis-3.11-setup.exe/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>📦 INNO SETUP 6.5.2</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/5j33tldx8nvayzm/Inno_Setup_V6.5.2.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/5j33tldx8nvayzm/Inno_Setup_V6.5.2.exe/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🟢 Node.js v16.20 (Electron 14)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/te765ykzyvcy7k3/node-v16.20.0-x86.msi/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/te765ykzyvcy7k3/node-v16.20.0-x86.msi/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🎨 Changer l’icône du setup</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/970q4ty5g38cbmk/reshacker_setup.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/970q4ty5g38cbmk/reshacker_setup.exe/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🌐 Microsoft WebView2</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/gyb13h686zu9nu3/MicrosoftEdgeWebview2Setup.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/gyb13h686zu9nu3/MicrosoftEdgeWebview2Setup.exe/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>📝 Notepad++</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/etfzbgr1zt0utem/notepad-windows-8.8.7-32566.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/etfzbgr1zt0utem/notepad-windows-8.8.7-32566.exe/file')">Copier</button>
+</div>
+</div>
+
+<!-- AJOUT PYTHON -->
+<div class="public-link">
+<span>🐍 SETUP DE PYTHON (Windows 8.1 – 32 BIT)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/ol32elmi6j6qhcf/python-3.7.9.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/ol32elmi6j6qhcf/python-3.7.9.exe/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>📄 FICHIER PY (Créateur de Setup Python)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/jyoqqmouc0tpt1r/CREATOR-SETUP-PYTHON.py/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/jyoqqmouc0tpt1r/CREATOR-SETUP-PYTHON.py/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🧰 LOGICIEL – Créateur de Setup Python</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/thewijdnfvdn9yo/CREATOR-SETUP-PYTHON_Setup.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/thewijdnfvdn9yo/CREATOR-SETUP-PYTHON_Setup.exe/file')">Copier</button>
+</div>
+</div>
+    
+<div class="public-link"> <span>💼 Plateforme de Petit Jobs</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://www.hellowork.com/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink(event,'https://www.hellowork.com/')">Copier</button> </div> </div> <div class="public-link"> <span>💼 Plateforme de Job</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://www.lindustrie-recrute.fr')">Ouvrir</button> <button class="copy-btn" onclick="copyLink(event,'https://www.lindustrie-recrute.fr')">Copier</button> </div> </div> <div class="public-link"> <span>💼 Plateforme de Job</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://recrutement-interim.skills-rh.fr/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink(event,'https://recrutement-interim.skills-rh.fr/')">Copier</button> </div> </div> <div class="public-link"> <span>👨‍💻 Les Développeurs (Discord)</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://discord.com/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://discord.com/')">Copier</button> </div> </div> <div class="public-link"> <span>👔 Les Développeurs (LinkedIn)</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://www.linkedin.com/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://www.linkedin.com/')">Copier</button> </div> </div> <div class="public-link"> <span>📱 HTML to APK</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://appsgeyser.com/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://appsgeyser.com/')">Copier</button> </div> </div> <div class="public-link"> <span>🧩 Page d’Exposition de Logiciels</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/l/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://etakouana35-del.github.io/l/')">Copier</button> </div> </div> <div class="public-link"> <span>🔗 Mes Liens</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/q/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://etakouana35-del.github.io/q/')">Copier</button> </div> </div> <div class="public-link"> <span>☁️ Hébergeur de Logiciel</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://app.mediafire.com')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://app.mediafire.com')">Copier</button> </div> </div> <div class="public-link"> <span>🖼️ Hébergeur d’Images</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://imgbb.com/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://imgbb.com/')">Copier</button> </div> </div> <div class="public-link"> <span>🎨 Convertir Image en Icône</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://image.online-convert.com/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://image.online-convert.com/')">Copier</button> </div> </div> <div class="public-link"> <span>📇 Registre de Contact</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/o/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://etakouana35-del.github.io/o/')">Copier</button> </div> </div> <div class="public-link"> <span>📦 Gestion de Stock</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/c/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://etakouana35-del.github.io/c/')">Copier</button> </div> </div> <div class="public-link"> <span>🐍 Code to PY</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/x/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://etakouana35-del.github.io/x/')">Copier</button> </div> </div> <div class="public-link"> <span>🌐 Code to HTML</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/g/')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://etakouana35-del.github.io/g/')">Copier</button> </div> </div> <div class="public-link"> <span>🐍 SETUP DE PYTHON (Windows 8.1 – 32 BIT)</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://www.mediafire.com/file/ol32elmi6j6qhcf/python-3.7.9.exe/file')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/ol32elmi6j6qhcf/python-3.7.9.exe/file')">Copier</button> </div> </div> <div class="public-link"> <span>📄 FICHIER PY (Créateur de Setup Python)</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://www.mediafire.com/file/jyoqqmouc0tpt1r/CREATOR-SETUP-PYTHON.py/file')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/jyoqqmouc0tpt1r/CREATOR-SETUP-PYTHON.py/file')">Copier</button> </div> </div> <div class="public-link"> <span>🧰 LOGICIEL – Créateur de Setup Python</span> <div class="btn-group"> <button class="open-btn" onclick="openLink('https://www.mediafire.com/file/thewijdnfvdn9yo/CREATOR-SETUP-PYTHON_Setup.exe/file')">Ouvrir</button> <button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/thewijdnfvdn9yo/CREATOR-SETUP-PYTHON_Setup.exe/file')">Copier</button> </div> </div>
+</div>
+</div>
+    
+<div class="public-link">
+  <span>📄 FICHIER CREATOR SETUP HTML D'ELECTRON14 VRAI</span>
+  <div class="btn-group">
+    <button class="open-btn" onclick="openLink('https://www.mediafire.com/file/sa4vf19noblok5s/FICHIER+DE+SETUP+HTML+D\'ELECTRON+14.html/file')">Ouvrir</button>
+    <button class="copy-btn" onclick="copyLink(event,'https://www.mediafire.com/file/sa4vf19noblok5s/FICHIER+DE+SETUP+HTML+D\'ELECTRON+14.html/file')">Copier</button>
+  </div>
+</div>
+
+<div class="public-link">
+  <span>🌐 PAGE CREATOR SETUP HTML D'ELECTRON14 VRAI</span>
+  <div class="btn-group">
+    <button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/ii/')">Ouvrir</button>
+    <button class="copy-btn" onclick="copyLink(event,'https://etakouana35-del.github.io/ii/')">Copier</button>
+  </div>
+</div>
+
+<div class="public-link">
+<span>🐍 CREATOR-SETUP-PYTHON + BAT AVANCÉ (Python 3.7)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/ldxzsgvd0zll61n/CREATOR-SETUP-PYTHON+BAT+AVANCE-DE+PYTHON+3.7.py/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/ldxzsgvd0zll61n/CREATOR-SETUP-PYTHON+BAT+AVANCE-DE+PYTHON+3.7.py/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🧰 CREATOR-SETUP-PYTHON.exe</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/hbcy7qio6pciw9v/CREATOR-SETUP-PYTHON.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/hbcy7qio6pciw9v/CREATOR-SETUP-PYTHON.exe/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>📦 CREATOR-SETUP-PYTHON – Setup</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/79z643kqegtx1g0/CREATOR-SETUP-PYTHON-Setup.exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/79z643kqegtx1g0/CREATOR-SETUP-PYTHON-Setup.exe/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>📄 license.txt</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/cejsxul89aoc6yz/license.txt/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/cejsxul89aoc6yz/license.txt/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>⚙️ Auto Install Python 3.7 + Requests (.bat)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/9w1bhpqnqlb5a1x/auto_install_python37_requests.bat/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/9w1bhpqnqlb5a1x/auto_install_python37_requests.bat/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🧪 BAT V2</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/dm9pjva50p4ekj9/.bat+V2.bat/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/dm9pjva50p4ekj9/.bat+V2.bat/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🏗️ Build Setup Universel (.bat)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/6r0jn9iqy5dz7f3/build_setup_universel.bat/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/6r0jn9iqy5dz7f3/build_setup_universel.bat/file')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🧩 Microsoft Visual C++ Redistributable x86</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.mediafire.com/file/feu0345p1j4df8k/vcredist_x86+(1).exe/file')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://www.mediafire.com/file/feu0345p1j4df8k/vcredist_x86+(1).exe/file')">Copier</button>
+</div>
+</div>
+    
+<div class="public-link">
+<span>🗜️ SERVEUR HÉBERGEUR avec source DE ZIP - HTML</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://attached-assets--aimeetakouana76.replit.app/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://attached-assets--aimeetakouana76.replit.app/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+  <span>🗜️ SERVEUR AVEC SOURCE PRO (zip-index)</span>
+  <div class="btn-group">
+    <button class="open-btn"
+      onclick="openLink('https://attached-assets--davnetg.replit.app')">
+      Ouvrir
+    </button>
+    <button class="copy-btn"
+      onclick="copyLink('https://attached-assets--davnetg.replit.app')">
+      Copier
+    </button>
+  </div>
+</div>
+
+<div class="public-link">
+  <span>🌐 SERVEUR CLIENT — GOOD DAV NET (HTML index, sans sources)</span>
+  <div class="btn-group">
+    <button class="open-btn"
+      onclick="openLink('https://attached-assets--davnet1992.replit.app/')">
+      Ouvrir
+    </button>
+    <button class="copy-btn"
+      onclick="copyLink('https://attached-assets--davnet1992.replit.app/')">
+      Copier
+    </button>
+  </div>
+</div>
+
+<div class="public-link">
+  <span>☁️ LE CLOUD - STOCKAGE EN LIGNE</span>
+  <div class="btn-group">
+    <button class="open-btn" onclick="openLink('https://etsgooddavnet1.pythonanywhere.com/')">Ouvrir</button>
+    <button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet1.pythonanywhere.com/')">Copier</button>
+  </div>
+</div>
+    
+<div class="public-link">
+  <span>☁️ LE CLOUD VRAI POUR TOUT – FICHIER & ZIP</span>
+  <div class="btn-group">
+    <button class="open-btn"
+      onclick="openLink('https://etsgooddavnet.pythonanywhere.com/')">
+      Ouvrir
+    </button>
+    <button class="copy-btn"
+      onclick="copyLink(event,'https://etsgooddavnet.pythonanywhere.com/')">
+      Copier
+    </button>
+  </div>
+</div>
+
+<div class="public-link">
+  <span>🔗 GESTIONNAIRE DE LIENS – SERVEUR GOOD DAV NET</span>
+  <div class="btn-group">
+    <button class="open-btn"
+      onclick="openLink('https://attached-assets--davnetg.replit.app/cloud1/')">
+      Ouvrir
+    </button>
+    <button class="copy-btn"
+      onclick="copyLink(event,'https://attached-assets--davnetg.replit.app/cloud1/')">
+      Copier
+    </button>
+  </div>
+</div>
+
+<div class="public-link">
+  <span>💬 Messenger</span>
+  <div class="btn-group">
+    <button class="open-btn" onclick="openLink('https://etsgooddavnet3.pythonanywhere.com/')">Ouvrir</button>
+    <button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet3.pythonanywhere.com/')">Copier</button>
+  </div>
+</div>
+    
+<div class="public-link">
+  <span>💬 EXPOSITION VRAI DES LOGICIELS </span>
+  <div class="btn-group">
+    <button class="open-btn" onclick="openLink('https://etsgooddavnet4.pythonanywhere.com/')">Ouvrir</button>
+    <button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet4.pythonanywhere.com/')">Copier</button>
+  </div>
+</div>
+
+<div class="public-link">
+    <span>💻 PLATEFORME DE MICROSOFT</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://learn.microsoft.com/')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://learn.microsoft.com/')">Copier</button>
+    </div>
+</div>
+    
+<div class="public-link">
+  <span>🛠️ TELECHARGER DES ADK DE WINDOWS</span>
+  <div class="btn-group">
+    <button class="open-btn" onclick="openLink('https://learn.microsoft.com/fr-fr/windows-hardware/get-started/adk-install?utm_source=chatgpt.com')">
+      Ouvrir
+    </button>
+    <button class="copy-btn" onclick="copyLink(event,'https://learn.microsoft.com/fr-fr/windows-hardware/get-started/adk-install?utm_source=chatgpt.com')">
+      Copier
+    </button>
+  </div>
+</div>
+    
+<div class="public-link">
+    <span>☁️ CLOUD DE MES LOGICIEL – etakouana35@gmail.com</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://mega.nz/fm/ljJmBTbK')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://mega.nz/fm/ljJmBTbK')">Copier</button>
+    </div>
+</div>
+
+<div class="public-link">
+    <span>🐍 CREATEUR DE EXE EN PYTHON + CHEMIN</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://etakouana35-del.github.io/kj/')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://etakouana35-del.github.io/kj/')">Copier</button>
+    </div>
+</div>
+    
+<div class="public-link">
+<span>🧊 Voir 3D GLB – GLTF Viewer</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://gltf-viewer.donmccurdy.com/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://gltf-viewer.donmccurdy.com/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>📐 Voir 3D – Babylon Sandbox</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://sandbox.babylonjs.com/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://sandbox.babylonjs.com/')">Copier</button>
+</div>
+</div>
+  
+<div class="public-link">
+    <span>📦 SOURCE VRAI DE CREATION DE LA PLATEFORME D’EXPOSITION EN PYTHON</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://www.pythonanywhere.com/user/etsgooddavnet4/files/home/etsgooddavnet4')">
+            Ouvrir
+        </button>
+        <button class="copy-btn" onclick="copyLink(event,'https://www.pythonanywhere.com/user/etsgooddavnet4/files/home/etsgooddavnet4')">
+            Copier
+        </button>
+    </div>
+</div>
+
+<div class="public-link">
+<span>🎵 Sons pour Jeux Vidéo (Slooply)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://slooply.com/search/sounds')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://slooply.com/search/sounds')">Copier</button>
+</div>
+</div>
+<h1>🚀 Mes Plateformes & Jeux</h1>
+
+<div class="section">
+<h2>🖥 HEBERGEUR-HOSTING</h2>
+<a href="https://web-hosting-server.lumi.ing">https://web-hosting-server.lumi.ing</a>
+</div>
+<div class="public-link">
+    <span>🤖 IA de VIDEO PUBLICITAIRE</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://api.lumi.new/v1/functions/p412931877608919040/serve-site?url=https%3A%2F%2Fapi.lumi.new%2Fv1%2Ffunctions%2Fp412931877608919040%2Fserve-html%3Fid%3D699dbb837cea832b57c1a03a&siteId=699dbb84bee53920e74e4b84')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://api.lumi.new/v1/functions/p412931877608919040/serve-site?url=https%3A%2F%2Fapi.lumi.new%2Fv1%2Ffunctions%2Fp412931877608919040%2Fserve-html%3Fid%3D699dbb837cea832b57c1a03a&siteId=699dbb84bee53920e74e4b84')">Copier</button>
+    </div>
+</div>
+
+<div class="public-link">
+    <span>🌐 CREATEUR DE SITE WEB</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://api.lumi.new/v1/functions/p412931877608919040/serve-site?url=https%3A%2F%2Fapi.lumi.new%2Fv1%2Ffunctions%2Fp412931877608919040%2Fserve-html%3Fid%3D699dbca6bee53920e74e4c70&siteId=699dbca67cea832b57c1a149')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://api.lumi.new/v1/functions/p412931877608919040/serve-site?url=https%3A%2F%2Fapi.lumi.new%2Fv1%2Ffunctions%2Fp412931877608919040%2Fserve-html%3Fid%3D699dbca6bee53920e74e4c70&siteId=699dbca67cea832b57c1a149')">Copier</button>
+    </div>
+</div>
+
+<div class="public-link">
+    <span>📦 STOCK ET FACTURATION</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://api.lumi.new/v1/functions/p412931877608919040/serve-site?url=https%3A%2F%2Fapi.lumi.new%2Fv1%2Ffunctions%2Fp412931877608919040%2Fserve-html%3Fid%3D699dbe96bee53920e74e4c7b&siteId=699dbe96bee53920e74e4c7c')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://api.lumi.new/v1/functions/p412931877608919040/serve-site?url=https%3A%2F%2Fapi.lumi.new%2Fv1%2Ffunctions%2Fp412931877608919040%2Fserve-html%3Fid%3D699dbe96bee53920e74e4c7b&siteId=699dbe96bee53920e74e4c7c')">Copier</button>
+    </div>
+</div>
+
+<div class="public-link">
+    <span>🎨 GENERATEUR D’IMAGE (01)</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://api.lumi.new/v1/functions/p412931877608919040/serve-site?url=https%3A%2F%2Fapi.lumi.new%2Fv1%2Ffunctions%2Fp412931877608919040%2Fserve-html%3Fid%3D699dc073bee53920e74e4c89&siteId=699dc073bee53920e74e4c8a')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://api.lumi.new/v1/functions/p412931877608919040/serve-site?url=https%3A%2F%2Fapi.lumi.new%2Fv1%2Ffunctions%2Fp412931877608919040%2Fserve-html%3Fid%3D699dc073bee53920e74e4c89&siteId=699dc073bee53920e74e4c8a')">Copier</button>
+    </div>
+</div>
+
+<div class="public-link">
+    <span>🎨 GENERATEUR D’IMAGE (02)</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://api.lumi.new/v1/functions/p412931877608919040/serve-site?url=https%3A%2F%2Fapi.lumi.new%2Fv1%2Ffunctions%2Fp412931877608919040%2Fserve-html%3Fid%3D699dc0a47cea832b57c1a16d&siteId=699dc0a5bee53920e74e4c8c')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://api.lumi.new/v1/functions/p412931877608919040/serve-site?url=https%3A%2F%2Fapi.lumi.new%2Fv1%2Ffunctions%2Fp412931877608919040%2Fserve-html%3Fid%3D699dc0a47cea832b57c1a16d&siteId=699dc0a5bee53920e74e4c8c')">Copier</button>
+    </div>
+</div>
+
+<div class="public-link">
+    <span>📢 Publicité</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://app.chariow.com/auth/register')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://app.chariow.com/auth/register')">Copier</button>
+    </div>
+</div>
+<div class="section">
+<h2>🤖 AI CREATOR PLATEFORME</h2>
+<a href="https://ai-server-platform.lumi.ing">https://ai-server-platform.lumi.ing</a>
+</div>
+
+<div class="section">
+<h2>🎮 JEUX</h2>
+<a href="https://policeboat3d.lumi.ing">Police Boat 3D</a>
+<a href="https://face-scanner-app.lumi.ing">Face Scanner App</a>
+<a href="https://3d-airplane-game.lumi.ing">3D Airplane Game</a>
+<a href="https://3d-lion-game.lumi.ing">3D Lion Game</a>
+</div>
+<div class="public-link">
+<span>☁️ Héberger un son – LimeWire</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://limewire.com/?referrer=pq7i8xx7p2')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://limewire.com/?referrer=pq7i8xx7p2')">Copier</button>
+</div>
+    
+</div <div class="public-link">
+<span>🎮 JEUX</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://gd.games/games/f39869a9-a6b6-4964-ae17-e6f16dc82e5a')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://gd.games/games/f39869a9-a6b6-4964-ae17-e6f16dc82e5a')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🎮 Créer des jeux avec IA – GDevelop</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://editor.gdevelop.io/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink('https://editor.gdevelop.io/')">Copier</button>
+</div>
+</div>
+<!-- API KEY OPENROUTER -->
+<div class="public-link">
+<span>🔑 API key – OpenRouter</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://openrouter.ai/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://openrouter.ai/')">Copier</button>
+</div>
+</div>
+
+<!-- API KEY OPENAI -->
+<div class="public-link">
+<span>🔑 API key – OpenAI</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://platform.openai.com/api-keys')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://platform.openai.com/api-keys')">Copier</button>
+</div>
+</div>
+
+<!-- LUMI AI -->
+<div class="public-link">
+<span>🤖 LUMI AI (Meilleur – Plateforme et Game)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://lumi.new/fr/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://lumi.new/fr/')">Copier</button>
+</div>
+</div>
+
+<!-- LUDO AI -->
+<div class="public-link">
+<span>🎮 LUDO AI (Game Creator)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://ludo.ai/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://ludo.ai/')">Copier</button>
+</div>
+</div>
+<div class="public-link">
+<span>🎨 GENERATEUR D’IMAGE</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://studio-gooddavnet.base44.app')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://studio-gooddavnet.base44.app')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🇫🇷 CORRECTION EN FRANCAIS</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://etsgoodavnet-correct.base44.app')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://etsgoodavnet-correct.base44.app')">Copier</button>
+</div>
+</div>
+<div class="public-link">
+<span>🧩 CREATEUR DE PLATEFORME (Base44)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://app.base44.com/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://app.base44.com/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🎨 CREATEUR DE PLATEFORME (Figma)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://www.figma.com/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://www.figma.com/')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>⚡ CREATEUR DE PLATEFORME (Lumi)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://lumi.new/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://lumi.new/')">Copier</button>
+</div>
+</div>
+<div class="public-link">
+<span>🔑 API KEY – OpenRouter</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://openrouter.ai/settings/keys')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://openrouter.ai/settings/keys')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🔑 API KEY – OpenAI</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://platform.openai.com/api-keys')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://platform.openai.com/api-keys')">Copier</button>
+</div>
+</div>
+
+<div class="public-link">
+<span>🔑 API KEY – RunwayML</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://dev.runwayml.com/')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://dev.runwayml.com/')">Copier</button>
+</div>
+</div>
+<!-- NOUVEAUX LIENS ETS GOOD DAV NET -->
+<div class="public-link">
+    <span>🌐 TRADUCTEUR D’ETS GOOD DAV NET</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://gooddav-translate.base44.app')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://gooddav-translate.base44.app')">Copier</button>
+    </div>
+</div>
+
+<div class="public-link">
+    <span>🖥 HEBERGEUR D’ETS GOOD DAV NET</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://etsgooddavnet-hebergeur.lumi.ing/-')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-hebergeur.lumi.ing/-')">Copier</button>
+    </div>
+</div>
+
+<div class="public-link">
+    <span>🤖 IA D’ETS GOOD DAV NET</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://etsgooddavnet-ia.lumi.ing/-')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-ia.lumi.ing/-')">Copier</button>
+    </div>
+</div>
+
+<div class="public-link">
+    <span>🤖 IA D’ETS GOOD DAV NET (02)</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://etsgooddavnet-ia2.lumi.ing/-')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-ia2.lumi.ing/-')">Copier</button>
+    </div>
+</div>
+
+<div class="public-link">
+    <span>📢 PLATE DE PUBLICITE</span>
+    <div class="btn-group">
+        <button class="open-btn" onclick="openLink('https://etsgooddavnet-pubs.lumi.ing/')">Ouvrir</button>
+        <button class="copy-btn" onclick="copyLink(event,'https://etsgooddavnet-pubs.lumi.ing/')">Copier</button>
+    </div>
+</div>
+<div class="public-link">
+<span>🔑 API KEY – Fal.ai</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://fal.ai/dashboard/keys')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://fal.ai/dashboard/keys')">Copier</button>
+</div>
+</div>
+
+<!-- GDEVELOP -->
+<div class="public-link">
+<span>🕹️ GDevelop (Créateur de jeux)</span>
+<div class="btn-group">
+<button class="open-btn" onclick="openLink('https://gdevelop.io/fr')">Ouvrir</button>
+<button class="copy-btn" onclick="copyLink(event,'https://gdevelop.io/fr')">Copier</button>
+</div>
+</div>
+
+    
+<footer>
+© 2025 ETS GOOD DAV NET — Tous droits réservés
+</footer>
 
 <script>
-
-// mot de passe
-const password = "52522";
-
-function checkPassword(){
-
-let input = document.getElementById("passwordInput").value;
-
-if(input === password){
-
-document.getElementById("lockScreen").style.display="none";
-
-}else{
-
-document.getElementById("errorMsg").innerText="Mot de passe incorrect";
-
+// MOT DE PASSE PAR DÉFAUT
+if (!localStorage.getItem("platform_password")) {
+    localStorage.setItem("platform_password", "52522");
 }
 
+// VÉRIFICATION DU MOT DE PASSE
+function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    const saved = localStorage.getItem("platform_password");
+
+    if (input === saved) {
+        document.getElementById("lockScreen").style.display = "none";
+    } else {
+        document.getElementById("errorMsg").innerText = "Mot de passe incorrect ❌";
+    }
 }
 
+// MODIFICATION DU MOT DE PASSE (avec ancien mot de passe obligatoire)
+function changePassword() {
+    const oldPassInput = document.getElementById("oldPassword").value;
+    const newPassInput = document.getElementById("newPassword").value;
+    const saved = localStorage.getItem("platform_password");
 
-// ouvrir lien
-function openLink(url){
-window.open(url,"_blank");
+    if (oldPassInput !== saved) {
+        alert("Ancien mot de passe incorrect ❌");
+        return;
+    }
+
+    if (newPassInput.length < 3) {
+        alert("Nouveau mot de passe trop court ❌");
+        return;
+    }
+
+    localStorage.setItem("platform_password", newPassInput);
+    alert("Mot de passe modifié avec succès ✅");
+    document.getElementById("oldPassword").value = "";
+    document.getElementById("newPassword").value = "";
 }
 
-
-// copier lien
-function copyLink(event,url){
-
-navigator.clipboard.writeText(url);
-
-let btn=event.target;
-let old=btn.innerText;
-
-btn.innerText="Copié ✔";
-
-setTimeout(()=>{
-btn.innerText=old;
-},1000);
-
+// FONCTIONS EXISTANTES
+function openLink(url) {
+    window.open(url, "_blank");
 }
 
-
-// =======================
-// SCRIPT PUBLICITÉ
-// =======================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-const adsData = [
-
-{ type:"link", url:"https://etakouana35-del.github.io/l/" },
-
-{ type:"link", url:"https://etakouana35-del.github.io/com/" },
-
-{ type:"link", url:"https://etsgooddavnet-dot.github.io/r/" },
-
-{ type:"video", url:"https://www.youtube.com/watch?v=dQw4w9WgXcQ" },
-
-{ type:"video", url:"https://www.w3schools.com/html/mov_bbb.mp4", loop:true }
-
-];
-
-
-let openedAds = JSON.parse(localStorage.getItem("openedAds") || "[]");
-
-
-adsData.forEach(ad => {
-
-if(!openedAds.includes(ad.url)){
-
-if(ad.type === "link"){
-
-window.open(ad.url,"_blank");
-
+function copyLink(e,link) {
+    e.preventDefault();
+    navigator.clipboard.writeText(link);
+    alert("Lien copié : " + link);
 }
-
-else if(ad.type === "video"){
-
-const videoWin = window.open("","_blank");
-
-let content="";
-
-
-if(ad.url.includes("youtube") || ad.url.includes("youtu.be")){
-
-let id="";
-
-if(ad.url.includes("youtu.be")){
-id = ad.url.split("/").pop();
-}else{
-const params = new URL(ad.url).searchParams;
-id = params.get("v");
-}
-
-content = `
-<html>
-<body style="margin:0;background:black;">
-<iframe width="100%" height="100%"
-src="https://www.youtube.com/embed/${id}?autoplay=1&mute=1"
-frameborder="0"
-allow="autoplay"
-allowfullscreen>
-</iframe>
-</body>
-</html>
-`;
-
-}
-
-else{
-
-content = `
-<html>
-<body style="margin:0;background:black;">
-<video src="${ad.url}" autoplay controls ${ad.loop?"loop":""}
-style="width:100%;height:100vh;">
-</video>
-</body>
-</html>
-`;
-
-}
-
-videoWin.document.write(content);
-
-}
-
-openedAds.push(ad.url);
-
-localStorage.setItem("openedAds",JSON.stringify(openedAds));
-
-}
-
-});
-
-});
-
-</script>
-
-</body>
+ 
+</script>  
+</body> 
 </html>
