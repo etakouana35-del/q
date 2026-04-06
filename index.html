@@ -890,20 +890,32 @@ if (!localStorage.getItem("platform_password")) {
 
 // VÉRIFICATION DU MOT DE PASSE
 function checkPassword() {
-    const input = document.getElementById("passwordInput").value;
+    const inputEl = document.getElementById("passwordInput");
+    const lockScreenEl = document.getElementById("lockScreen");
+    const errorMsgEl = document.getElementById("errorMsg");
+
+    if (!inputEl || !lockScreenEl || !errorMsgEl) return;
+
+    const input = inputEl.value;
     const saved = localStorage.getItem("platform_password");
 
     if (input === saved) {
-        document.getElementById("lockScreen").style.display = "none";
+        lockScreenEl.style.display = "none";
+        errorMsgEl.innerText = "";
     } else {
-        document.getElementById("errorMsg").innerText = "Mot de passe incorrect ❌";
+        errorMsgEl.innerText = "Mot de passe incorrect ❌";
     }
 }
 
-// MODIFICATION DU MOT DE PASSE (avec ancien mot de passe obligatoire)
+// MODIFICATION DU MOT DE PASSE
 function changePassword() {
-    const oldPassInput = document.getElementById("oldPassword").value;
-    const newPassInput = document.getElementById("newPassword").value;
+    const oldPassEl = document.getElementById("oldPassword");
+    const newPassEl = document.getElementById("newPassword");
+
+    if (!oldPassEl || !newPassEl) return;
+
+    const oldPassInput = oldPassEl.value;
+    const newPassInput = newPassEl.value;
     const saved = localStorage.getItem("platform_password");
 
     if (oldPassInput !== saved) {
@@ -918,21 +930,39 @@ function changePassword() {
 
     localStorage.setItem("platform_password", newPassInput);
     alert("Mot de passe modifié avec succès ✅");
-    document.getElementById("oldPassword").value = "";
-    document.getElementById("newPassword").value = "";
+
+    oldPassEl.value = "";
+    newPassEl.value = "";
 }
 
-// FONCTIONS EXISTANTES
+// OUVRIR UN LIEN
 function openLink(url) {
     window.open(url, "_blank");
 }
 
-function copyLink(e,link) {
+// COPIER UN LIEN
+function copyLink(e, link) {
     e.preventDefault();
-    navigator.clipboard.writeText(link);
-    alert("Lien copié : " + link);
+
+    if (!navigator.clipboard) {
+        alert("Copie non supportée sur ce navigateur ❌");
+        return;
+    }
+
+    navigator.clipboard.writeText(link)
+        .then(() => {
+            alert("Lien copié : " + link);
+        })
+        .catch(err => {
+            console.error("Erreur lors de la copie :", err);
+        });
 }
-<script src="https://smartbot.ai/widget.js" data-bot-id="69d3a260c1ecf5fb64136ab4" data-color="#191ca3"></script> 
-</script>  
-</body> 
+</script>
+
+<script src="https://smartbot.ai/widget.js"
+        data-bot-id="69d3a260c1ecf5fb64136ab4"
+        data-color="#191ca3">
+</script>
+
+</body>
 </html>
