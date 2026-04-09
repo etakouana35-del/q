@@ -940,41 +940,30 @@ function openLink(url) {
     window.open(url, "_blank");
 }
 <!-- BOUTON POUR COPIER UN LIEN -->
-<button onclick="copyLink(event, 'https://example.com')">Copier le lien</button>
+<button onclick="copyLink('https://example.com')">Copier le lien</button>
 
 <script>
-// FONCTION POUR COPIER UN LIEN
-function copyLink(e, link) {
-    e.preventDefault();
-
+// FONCTION SIMPLE POUR COPIER UN LIEN
+function copyLink(link) {
     if (!navigator.clipboard) {
         alert("Copie non supportée sur ce navigateur ❌");
         return;
     }
-
     navigator.clipboard.writeText(link)
-        .then(() => {
-            alert("Lien copié : " + link);
-        })
-        .catch(err => {
-            console.error("Erreur lors de la copie :", err);
-        });
+        .then(() => alert("Lien copié : " + link))
+        .catch(err => console.error("Erreur lors de la copie :", err));
 }
 </script>
 
 <!-- WIDGET CHAT EMBED -->
+<script src="https://cdn.chatembed.ai/widget.js"></script>
 <script>
-(function() {
-    var config = {
+if (typeof ChatEmbed !== 'undefined') {
+    ChatEmbed.init({
         botId: "69d7f3ed529d4dd7c76e7f9b",
         name: "Assistant Etakouana Numérique",
         color: "#7c3aed",
-        welcome: "Bonjour ! Comment puis-je vous aider ?",
-    };
-    var s = document.createElement('script');
-    s.src = 'https://cdn.chatembed.ai/widget.js';
-    s.async = true;
-    s.onload = function() { ChatEmbed.init(config); };
-    document.head.appendChild(s);
-})();
+        welcome: "Bonjour ! Comment puis-je vous aider ?"
+    });
+}
 </script>
