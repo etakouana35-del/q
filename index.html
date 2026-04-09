@@ -939,44 +939,38 @@ function changePassword() {
 function openLink(url) {
     window.open(url, "_blank");
 }   
-<!-- BOUTON COPIER + WIDGET CHAT FLOTTANT -->
-<div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px;">
+// COPIER UN LIEN
+function copyLink(e, link) {
+    e.preventDefault();
 
-    <!-- BOUTON COPIER UN LIEN -->
-    <button onclick="copyLink('https://example.com')" style="padding: 10px 15px; background-color:#7c3aed; color:white; border:none; border-radius:5px; cursor:pointer;">
-        Copier le lien
-    </button>
-
-    <!-- CONTENEUR DU CHAT -->
-    <div id="chatembed-container" style="width: 350px; height: 500px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"></div>
-
-</div>
-
-<script>
-// FONCTION SIMPLE POUR COPIER UN LIEN
-function copyLink(link) {
     if (!navigator.clipboard) {
         alert("Copie non supportée sur ce navigateur ❌");
         return;
     }
-    navigator.clipboard.writeText(link)
-        .then(() => alert("Lien copié : " + link))
-        .catch(err => console.error("Erreur lors de la copie :", err));
-}
-</script>
 
-<!-- SCRIPT CHAT EMBED -->
-<script src="https://cdn.chatembed.ai/widget.js"></script>
-<script>
-if (typeof ChatEmbed !== 'undefined') {
-    ChatEmbed.init({
-        botId: "69d7f3ed529d4dd7c76e7f9b",
-        container: "#chatembed-container",
-        name: "Assistant Etakouana Numérique",
-        color: "#7c3aed",
-        welcome: "Bonjour ! Comment puis-je vous aider ?"
-    });
+    navigator.clipboard.writeText(link)
+        .then(() => {
+            alert("Lien copié : " + link);
+        })
+        .catch(err => {
+            console.error("Erreur lors de la copie :", err);
+        });
 }
+<!-- ChatEmbed.ai Widget -->
+<script>
+  (function() {
+    var config = {
+      botId: "69d7f3ed529d4dd7c76e7f9b",
+      name: "Assistant Etakouana Numérique",
+      color: "#7c3aed",
+      welcome: "Bonjour ! Comment puis-je vous aider ?",
+    };
+    var s = document.createElement('script');
+    s.src = 'https://cdn.chatembed.ai/widget.js';
+    s.async = true;
+    s.onload = function() { ChatEmbed.init(config); };
+    document.head.appendChild(s);
+  })();
 </script>
 </body>
 </html>
